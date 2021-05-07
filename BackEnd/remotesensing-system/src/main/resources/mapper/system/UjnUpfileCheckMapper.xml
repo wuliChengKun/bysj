@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujn.diaock.system.mapper.UjnUpfileCheckMapper">
+    
+    <resultMap type="UjnUpfileCheck" id="UjnUpfileCheckResult">
+        <result property="fileCheckId"    column="file_check_id"    />
+        <result property="fileId"    column="file_id"    />
+        <result property="upfileAuditorId"    column="upfile_auditor_id"    />
+        <result property="checkDate"    column="check_date"    />
+    </resultMap>
+
+    <sql id="selectUjnUpfileCheckVo">
+        select file_check_id, file_id, upfile_auditor_id, check_date from ujn_upfile_check
+    </sql>
+
+    <select id="selectUjnUpfileCheckList" parameterType="UjnUpfileCheck" resultMap="UjnUpfileCheckResult">
+        <include refid="selectUjnUpfileCheckVo"/>
+        <where>  
+            <if test="fileId != null "> and file_id = #{fileId}</if>
+            <if test="upfileAuditorId != null "> and upfile_auditor_id = #{upfileAuditorId}</if>
+            <if test="checkDate != null "> and check_date = #{checkDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectUjnUpfileCheckById" parameterType="Long" resultMap="UjnUpfileCheckResult">
+        <include refid="selectUjnUpfileCheckVo"/>
+        where file_check_id = #{fileCheckId}
+    </select>
+        
+    <insert id="insertUjnUpfileCheck" parameterType="UjnUpfileCheck" useGeneratedKeys="true" keyProperty="fileCheckId">
+        insert into ujn_upfile_check
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">file_id,</if>
+            <if test="upfileAuditorId != null">upfile_auditor_id,</if>
+            <if test="checkDate != null">check_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">#{fileId},</if>
+            <if test="upfileAuditorId != null">#{upfileAuditorId},</if>
+            <if test="checkDate != null">#{checkDate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUjnUpfileCheck" parameterType="UjnUpfileCheck">
+        update ujn_upfile_check
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="upfileAuditorId != null">upfile_auditor_id = #{upfileAuditorId},</if>
+            <if test="checkDate != null">check_date = #{checkDate},</if>
+        </trim>
+        where file_check_id = #{fileCheckId}
+    </update>
+
+    <delete id="deleteUjnUpfileCheckById" parameterType="Long">
+        delete from ujn_upfile_check where file_check_id = #{fileCheckId}
+    </delete>
+
+    <delete id="deleteUjnUpfileCheckByIds" parameterType="String">
+        delete from ujn_upfile_check where file_check_id in 
+        <foreach item="fileCheckId" collection="array" open="(" separator="," close=")">
+            #{fileCheckId}
+        </foreach>
+    </delete>
+</mapper>

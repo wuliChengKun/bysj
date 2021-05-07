@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujn.diaock.system.mapper.UjnShoppingcarMapper">
+    
+    <resultMap type="UjnShoppingcar" id="UjnShoppingcarResult">
+        <result property="shoppingcarId"    column="shoppingcar_id"    />
+        <result property="userId"    column="user_id"    />
+    </resultMap>
+
+    <sql id="selectUjnShoppingcarVo">
+        select shoppingcar_id, user_id from ujn_shoppingcar
+    </sql>
+
+    <select id="selectUjnShoppingcarList" parameterType="UjnShoppingcar" resultMap="UjnShoppingcarResult">
+        <include refid="selectUjnShoppingcarVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where>
+    </select>
+    
+    <select id="selectUjnShoppingcarById" parameterType="Long" resultMap="UjnShoppingcarResult">
+        <include refid="selectUjnShoppingcarVo"/>
+        where shoppingcar_id = #{shoppingcarId}
+    </select>
+        
+    <insert id="insertUjnShoppingcar" parameterType="UjnShoppingcar" useGeneratedKeys="true" keyProperty="shoppingcarId">
+        insert into ujn_shoppingcar
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUjnShoppingcar" parameterType="UjnShoppingcar">
+        update ujn_shoppingcar
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+        </trim>
+        where shoppingcar_id = #{shoppingcarId}
+    </update>
+
+    <delete id="deleteUjnShoppingcarById" parameterType="Long">
+        delete from ujn_shoppingcar where shoppingcar_id = #{shoppingcarId}
+    </delete>
+
+    <delete id="deleteUjnShoppingcarByIds" parameterType="String">
+        delete from ujn_shoppingcar where shoppingcar_id in 
+        <foreach item="shoppingcarId" collection="array" open="(" separator="," close=")">
+            #{shoppingcarId}
+        </foreach>
+    </delete>
+</mapper>

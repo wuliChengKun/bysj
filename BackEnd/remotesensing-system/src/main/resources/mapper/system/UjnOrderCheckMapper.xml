@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujn.diaock.system.mapper.UjnOrderCheckMapper">
+    
+    <resultMap type="UjnOrderCheck" id="UjnOrderCheckResult">
+        <result property="orderCheckId"    column="order_check_id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="orderAuditorId"    column="order_auditor_id"    />
+        <result property="checkDate"    column="check_date"    />
+    </resultMap>
+
+    <sql id="selectUjnOrderCheckVo">
+        select order_check_id, order_id, order_auditor_id, check_date from ujn_order_check
+    </sql>
+
+    <select id="selectUjnOrderCheckList" parameterType="UjnOrderCheck" resultMap="UjnOrderCheckResult">
+        <include refid="selectUjnOrderCheckVo"/>
+        <where>  
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="orderAuditorId != null "> and order_auditor_id = #{orderAuditorId}</if>
+            <if test="checkDate != null "> and check_date = #{checkDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectUjnOrderCheckById" parameterType="Long" resultMap="UjnOrderCheckResult">
+        <include refid="selectUjnOrderCheckVo"/>
+        where order_check_id = #{orderCheckId}
+    </select>
+        
+    <insert id="insertUjnOrderCheck" parameterType="UjnOrderCheck" useGeneratedKeys="true" keyProperty="orderCheckId">
+        insert into ujn_order_check
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="orderAuditorId != null">order_auditor_id,</if>
+            <if test="checkDate != null">check_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="orderAuditorId != null">#{orderAuditorId},</if>
+            <if test="checkDate != null">#{checkDate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUjnOrderCheck" parameterType="UjnOrderCheck">
+        update ujn_order_check
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="orderAuditorId != null">order_auditor_id = #{orderAuditorId},</if>
+            <if test="checkDate != null">check_date = #{checkDate},</if>
+        </trim>
+        where order_check_id = #{orderCheckId}
+    </update>
+
+    <delete id="deleteUjnOrderCheckById" parameterType="Long">
+        delete from ujn_order_check where order_check_id = #{orderCheckId}
+    </delete>
+
+    <delete id="deleteUjnOrderCheckByIds" parameterType="String">
+        delete from ujn_order_check where order_check_id in 
+        <foreach item="orderCheckId" collection="array" open="(" separator="," close=")">
+            #{orderCheckId}
+        </foreach>
+    </delete>
+</mapper>

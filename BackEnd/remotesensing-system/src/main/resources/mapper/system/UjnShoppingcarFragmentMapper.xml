@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujn.diaock.system.mapper.UjnShoppingcarFragmentMapper">
+    
+    <resultMap type="UjnShoppingcarFragment" id="UjnShoppingcarFragmentResult">
+        <result property="shoppingcarFragmentId"    column="shoppingcar_fragment_id"    />
+        <result property="shoppingcarId"    column="shoppingcar_id"    />
+        <result property="caseId"    column="case_id"    />
+    </resultMap>
+
+    <sql id="selectUjnShoppingcarFragmentVo">
+        select shoppingcar_fragment_id, shoppingcar_id, case_id from ujn_shoppingcar_fragment
+    </sql>
+
+    <select id="selectUjnShoppingcarFragmentList" parameterType="UjnShoppingcarFragment" resultMap="UjnShoppingcarFragmentResult">
+        <include refid="selectUjnShoppingcarFragmentVo"/>
+        <where>  
+            <if test="shoppingcarId != null "> and shoppingcar_id = #{shoppingcarId}</if>
+            <if test="caseId != null "> and case_id = #{caseId}</if>
+        </where>
+    </select>
+    
+    <select id="selectUjnShoppingcarFragmentById" parameterType="Long" resultMap="UjnShoppingcarFragmentResult">
+        <include refid="selectUjnShoppingcarFragmentVo"/>
+        where shoppingcar_fragment_id = #{shoppingcarFragmentId}
+    </select>
+        
+    <insert id="insertUjnShoppingcarFragment" parameterType="UjnShoppingcarFragment" useGeneratedKeys="true" keyProperty="shoppingcarFragmentId">
+        insert into ujn_shoppingcar_fragment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shoppingcarId != null">shoppingcar_id,</if>
+            <if test="caseId != null">case_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shoppingcarId != null">#{shoppingcarId},</if>
+            <if test="caseId != null">#{caseId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUjnShoppingcarFragment" parameterType="UjnShoppingcarFragment">
+        update ujn_shoppingcar_fragment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shoppingcarId != null">shoppingcar_id = #{shoppingcarId},</if>
+            <if test="caseId != null">case_id = #{caseId},</if>
+        </trim>
+        where shoppingcar_fragment_id = #{shoppingcarFragmentId}
+    </update>
+
+    <delete id="deleteUjnShoppingcarFragmentById" parameterType="Long">
+        delete from ujn_shoppingcar_fragment where shoppingcar_fragment_id = #{shoppingcarFragmentId}
+    </delete>
+
+    <delete id="deleteUjnShoppingcarFragmentByIds" parameterType="String">
+        delete from ujn_shoppingcar_fragment where shoppingcar_fragment_id in 
+        <foreach item="shoppingcarFragmentId" collection="array" open="(" separator="," close=")">
+            #{shoppingcarFragmentId}
+        </foreach>
+    </delete>
+</mapper>

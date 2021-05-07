@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ujn.diaock.system.mapper.UjnCaseMapper">
+    
+    <resultMap type="UjnCase" id="UjnCaseResult">
+        <result property="caseId"    column="case_id"    />
+        <result property="groupId"    column="group_id"    />
+        <result property="caseName"    column="case_name"    />
+        <result property="casePrice"    column="case_price"    />
+        <result property="caseThumb"    column="case_thumb"    />
+        <result property="statelliteid"    column="StatelliteID"    />
+        <result property="sensorid"    column="SensorID"    />
+        <result property="receivetime"    column="ReceiveTime"    />
+        <result property="orbitid"    column="OrbitID"    />
+        <result property="producetype"    column="ProduceType"    />
+        <result property="sceneid"    column="SceneID"    />
+        <result property="productid"    column="ProductID"    />
+        <result property="productlevel"    column="ProductLevel"    />
+        <result property="productquality"    column="ProductQuality"    />
+        <result property="productqualityreport"    column="ProductQualityReport"    />
+        <result property="productformat"    column="ProductFormat"    />
+        <result property="producetime"    column="ProduceTime"    />
+        <result property="bands"    column="Bands"    />
+        <result property="scenepath"    column="ScenePath"    />
+        <result property="scenerow"    column="SceneRow"    />
+        <result property="satpath"    column="SatPath"    />
+        <result property="satrow"    column="SatRow"    />
+        <result property="scenecount"    column="SceneCount"    />
+        <result property="sceneshift"    column="SceneShift"    />
+        <result property="starttime"    column="StartTime"    />
+        <result property="endtime"    column="EndTime"    />
+        <result property="centertime"    column="CenterTime"    />
+        <result property="imagegsd"    column="ImageGSD"    />
+        <result property="widthinpixels"    column="WidthInPixels"    />
+        <result property="heightinpixels"    column="HeightInPixels"    />
+        <result property="widthinmeters"    column="WidthInMeters"    />
+        <result property="heightinmeters"    column="HeightInMeters"    />
+        <result property="cloudpercent"    column="CloudPercent"    />
+        <result property="qualityinfo"    column="QualityInfo"    />
+        <result property="pixelbits"    column="PixelBits"    />
+        <result property="validpixelbits"    column="ValidPixelBits"    />
+        <result property="rollviewingangle"    column="RollViewingAngle"    />
+        <result property="pitchviewingangle"    column="PitchViewingAngle"    />
+        <result property="rollsatelliteangle"    column="RollSatelliteAngle"    />
+        <result property="pitchsatelliteangle"    column="PitchSatelliteAngle"    />
+        <result property="yawsatelliteangle"    column="YawSatelliteAngle"    />
+        <result property="solarazimuth"    column="SolarAzimuth"    />
+        <result property="solarzenith"    column="SolarZenith"    />
+        <result property="satelliteazimuth"    column="SatelliteAzimuth"    />
+        <result property="satellitezenith"    column="SatelliteZenith"    />
+        <result property="gainmode"    column="GainMode"    />
+        <result property="integrationtime"    column="IntegrationTime"    />
+        <result property="integrationlevel"    column="IntegrationLevel"    />
+        <result property="earthellipsoid"    column="EarthEllipsoid"    />
+        <result property="topleftlatitude"    column="TopLeftLatitude"    />
+        <result property="topleftlongitude"    column="TopLeftLongitude"    />
+        <result property="toprightlatitude"    column="TopRightLatitude"    />
+        <result property="toprightlongitude"    column="TopRightLongitude"    />
+        <result property="bottomrightlatitude"    column="BottomRightLatitude"    />
+        <result property="bottomrightlongitude"    column="BottomRightLongitude"    />
+        <result property="bottomleftlatitude"    column="BottomLeftLatitude"    />
+        <result property="bottomleftlongitude"    column="BottomLeftLongitude"    />
+    </resultMap>
+
+    <sql id="selectUjnCaseVo">
+        select case_id, group_id, case_name, case_price, case_thumb, StatelliteID, SensorID, ReceiveTime, OrbitID, ProduceType, SceneID, ProductID, ProductLevel, ProductQuality, ProductQualityReport, ProductFormat, ProduceTime, Bands, ScenePath, SceneRow, SatPath, SatRow, SceneCount, SceneShift, StartTime, EndTime, CenterTime, ImageGSD, WidthInPixels, HeightInPixels, WidthInMeters, HeightInMeters, CloudPercent, QualityInfo, PixelBits, ValidPixelBits, RollViewingAngle, PitchViewingAngle, RollSatelliteAngle, PitchSatelliteAngle, YawSatelliteAngle, SolarAzimuth, SolarZenith, SatelliteAzimuth, SatelliteZenith, GainMode, IntegrationTime, IntegrationLevel, EarthEllipsoid, TopLeftLatitude, TopLeftLongitude, TopRightLatitude, TopRightLongitude, BottomRightLatitude, BottomRightLongitude, BottomLeftLatitude, BottomLeftLongitude from ujn_case
+    </sql>
+
+    <select id="selectUjnCaseList" parameterType="UjnCase" resultMap="UjnCaseResult">
+        <include refid="selectUjnCaseVo"/>
+        <where>  
+            <if test="groupId != null "> and group_id = #{groupId}</if>
+            <if test="caseName != null  and caseName != ''"> and case_name like concat('%', #{caseName}, '%')</if>
+            <if test="casePrice != null "> and case_price = #{casePrice}</if>
+            <if test="caseThumb != null  and caseThumb != ''"> and case_thumb = #{caseThumb}</if>
+            <if test="statelliteid != null  and statelliteid != ''"> and StatelliteID = #{statelliteid}</if>
+            <if test="sensorid != null  and sensorid != ''"> and SensorID = #{sensorid}</if>
+            <if test="receivetime != null  and receivetime != ''"> and ReceiveTime = #{receivetime}</if>
+            <if test="orbitid != null  and orbitid != ''"> and OrbitID = #{orbitid}</if>
+            <if test="producetype != null  and producetype != ''"> and ProduceType = #{producetype}</if>
+            <if test="sceneid != null  and sceneid != ''"> and SceneID = #{sceneid}</if>
+            <if test="productid != null  and productid != ''"> and ProductID = #{productid}</if>
+            <if test="productlevel != null  and productlevel != ''"> and ProductLevel = #{productlevel}</if>
+            <if test="productquality != null  and productquality != ''"> and ProductQuality = #{productquality}</if>
+            <if test="productqualityreport != null  and productqualityreport != ''"> and ProductQualityReport = #{productqualityreport}</if>
+            <if test="productformat != null  and productformat != ''"> and ProductFormat = #{productformat}</if>
+            <if test="producetime != null  and producetime != ''"> and ProduceTime = #{producetime}</if>
+            <if test="bands != null  and bands != ''"> and Bands = #{bands}</if>
+            <if test="scenepath != null  and scenepath != ''"> and ScenePath = #{scenepath}</if>
+            <if test="scenerow != null  and scenerow != ''"> and SceneRow = #{scenerow}</if>
+            <if test="satpath != null  and satpath != ''"> and SatPath = #{satpath}</if>
+            <if test="satrow != null  and satrow != ''"> and SatRow = #{satrow}</if>
+            <if test="scenecount != null  and scenecount != ''"> and SceneCount = #{scenecount}</if>
+            <if test="sceneshift != null  and sceneshift != ''"> and SceneShift = #{sceneshift}</if>
+            <if test="starttime != null  and starttime != ''"> and StartTime = #{starttime}</if>
+            <if test="endtime != null  and endtime != ''"> and EndTime = #{endtime}</if>
+            <if test="centertime != null  and centertime != ''"> and CenterTime = #{centertime}</if>
+            <if test="imagegsd != null  and imagegsd != ''"> and ImageGSD = #{imagegsd}</if>
+            <if test="widthinpixels != null  and widthinpixels != ''"> and WidthInPixels = #{widthinpixels}</if>
+            <if test="heightinpixels != null  and heightinpixels != ''"> and HeightInPixels = #{heightinpixels}</if>
+            <if test="widthinmeters != null  and widthinmeters != ''"> and WidthInMeters = #{widthinmeters}</if>
+            <if test="heightinmeters != null  and heightinmeters != ''"> and HeightInMeters = #{heightinmeters}</if>
+            <if test="cloudpercent != null  and cloudpercent != ''"> and CloudPercent = #{cloudpercent}</if>
+            <if test="qualityinfo != null  and qualityinfo != ''"> and QualityInfo = #{qualityinfo}</if>
+            <if test="pixelbits != null  and pixelbits != ''"> and PixelBits = #{pixelbits}</if>
+            <if test="validpixelbits != null  and validpixelbits != ''"> and ValidPixelBits = #{validpixelbits}</if>
+            <if test="rollviewingangle != null  and rollviewingangle != ''"> and RollViewingAngle = #{rollviewingangle}</if>
+            <if test="pitchviewingangle != null  and pitchviewingangle != ''"> and PitchViewingAngle = #{pitchviewingangle}</if>
+            <if test="rollsatelliteangle != null  and rollsatelliteangle != ''"> and RollSatelliteAngle = #{rollsatelliteangle}</if>
+            <if test="pitchsatelliteangle != null  and pitchsatelliteangle != ''"> and PitchSatelliteAngle = #{pitchsatelliteangle}</if>
+            <if test="yawsatelliteangle != null  and yawsatelliteangle != ''"> and YawSatelliteAngle = #{yawsatelliteangle}</if>
+            <if test="solarazimuth != null  and solarazimuth != ''"> and SolarAzimuth = #{solarazimuth}</if>
+            <if test="solarzenith != null  and solarzenith != ''"> and SolarZenith = #{solarzenith}</if>
+            <if test="satelliteazimuth != null  and satelliteazimuth != ''"> and SatelliteAzimuth = #{satelliteazimuth}</if>
+            <if test="satellitezenith != null  and satellitezenith != ''"> and SatelliteZenith = #{satellitezenith}</if>
+            <if test="gainmode != null  and gainmode != ''"> and GainMode = #{gainmode}</if>
+            <if test="integrationtime != null  and integrationtime != ''"> and IntegrationTime = #{integrationtime}</if>
+            <if test="integrationlevel != null  and integrationlevel != ''"> and IntegrationLevel = #{integrationlevel}</if>
+            <if test="earthellipsoid != null  and earthellipsoid != ''"> and EarthEllipsoid = #{earthellipsoid}</if>
+            <if test="topleftlatitude != null  and topleftlatitude != ''"> and TopLeftLatitude = #{topleftlatitude}</if>
+            <if test="topleftlongitude != null  and topleftlongitude != ''"> and TopLeftLongitude = #{topleftlongitude}</if>
+            <if test="toprightlatitude != null  and toprightlatitude != ''"> and TopRightLatitude = #{toprightlatitude}</if>
+            <if test="toprightlongitude != null  and toprightlongitude != ''"> and TopRightLongitude = #{toprightlongitude}</if>
+            <if test="bottomrightlatitude != null  and bottomrightlatitude != ''"> and BottomRightLatitude = #{bottomrightlatitude}</if>
+            <if test="bottomrightlongitude != null  and bottomrightlongitude != ''"> and BottomRightLongitude = #{bottomrightlongitude}</if>
+            <if test="bottomleftlatitude != null  and bottomleftlatitude != ''"> and BottomLeftLatitude = #{bottomleftlatitude}</if>
+            <if test="bottomleftlongitude != null  and bottomleftlongitude != ''"> and BottomLeftLongitude = #{bottomleftlongitude}</if>
+        </where>
+    </select>
+    
+    <select id="selectUjnCaseById" parameterType="Long" resultMap="UjnCaseResult">
+        <include refid="selectUjnCaseVo"/>
+        where case_id = #{caseId}
+    </select>
+        
+    <insert id="insertUjnCase" parameterType="UjnCase" useGeneratedKeys="true" keyProperty="caseId">
+        insert into ujn_case
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">group_id,</if>
+            <if test="caseName != null">case_name,</if>
+            <if test="casePrice != null">case_price,</if>
+            <if test="caseThumb != null">case_thumb,</if>
+            <if test="statelliteid != null">StatelliteID,</if>
+            <if test="sensorid != null">SensorID,</if>
+            <if test="receivetime != null">ReceiveTime,</if>
+            <if test="orbitid != null">OrbitID,</if>
+            <if test="producetype != null">ProduceType,</if>
+            <if test="sceneid != null">SceneID,</if>
+            <if test="productid != null">ProductID,</if>
+            <if test="productlevel != null">ProductLevel,</if>
+            <if test="productquality != null">ProductQuality,</if>
+            <if test="productqualityreport != null">ProductQualityReport,</if>
+            <if test="productformat != null">ProductFormat,</if>
+            <if test="producetime != null">ProduceTime,</if>
+            <if test="bands != null">Bands,</if>
+            <if test="scenepath != null">ScenePath,</if>
+            <if test="scenerow != null">SceneRow,</if>
+            <if test="satpath != null">SatPath,</if>
+            <if test="satrow != null">SatRow,</if>
+            <if test="scenecount != null">SceneCount,</if>
+            <if test="sceneshift != null">SceneShift,</if>
+            <if test="starttime != null">StartTime,</if>
+            <if test="endtime != null">EndTime,</if>
+            <if test="centertime != null">CenterTime,</if>
+            <if test="imagegsd != null">ImageGSD,</if>
+            <if test="widthinpixels != null">WidthInPixels,</if>
+            <if test="heightinpixels != null">HeightInPixels,</if>
+            <if test="widthinmeters != null">WidthInMeters,</if>
+            <if test="heightinmeters != null">HeightInMeters,</if>
+            <if test="cloudpercent != null">CloudPercent,</if>
+            <if test="qualityinfo != null">QualityInfo,</if>
+            <if test="pixelbits != null">PixelBits,</if>
+            <if test="validpixelbits != null">ValidPixelBits,</if>
+            <if test="rollviewingangle != null">RollViewingAngle,</if>
+            <if test="pitchviewingangle != null">PitchViewingAngle,</if>
+            <if test="rollsatelliteangle != null">RollSatelliteAngle,</if>
+            <if test="pitchsatelliteangle != null">PitchSatelliteAngle,</if>
+            <if test="yawsatelliteangle != null">YawSatelliteAngle,</if>
+            <if test="solarazimuth != null">SolarAzimuth,</if>
+            <if test="solarzenith != null">SolarZenith,</if>
+            <if test="satelliteazimuth != null">SatelliteAzimuth,</if>
+            <if test="satellitezenith != null">SatelliteZenith,</if>
+            <if test="gainmode != null">GainMode,</if>
+            <if test="integrationtime != null">IntegrationTime,</if>
+            <if test="integrationlevel != null">IntegrationLevel,</if>
+            <if test="earthellipsoid != null">EarthEllipsoid,</if>
+            <if test="topleftlatitude != null">TopLeftLatitude,</if>
+            <if test="topleftlongitude != null">TopLeftLongitude,</if>
+            <if test="toprightlatitude != null">TopRightLatitude,</if>
+            <if test="toprightlongitude != null">TopRightLongitude,</if>
+            <if test="bottomrightlatitude != null">BottomRightLatitude,</if>
+            <if test="bottomrightlongitude != null">BottomRightLongitude,</if>
+            <if test="bottomleftlatitude != null">BottomLeftLatitude,</if>
+            <if test="bottomleftlongitude != null">BottomLeftLongitude,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">#{groupId},</if>
+            <if test="caseName != null">#{caseName},</if>
+            <if test="casePrice != null">#{casePrice},</if>
+            <if test="caseThumb != null">#{caseThumb},</if>
+            <if test="statelliteid != null">#{statelliteid},</if>
+            <if test="sensorid != null">#{sensorid},</if>
+            <if test="receivetime != null">#{receivetime},</if>
+            <if test="orbitid != null">#{orbitid},</if>
+            <if test="producetype != null">#{producetype},</if>
+            <if test="sceneid != null">#{sceneid},</if>
+            <if test="productid != null">#{productid},</if>
+            <if test="productlevel != null">#{productlevel},</if>
+            <if test="productquality != null">#{productquality},</if>
+            <if test="productqualityreport != null">#{productqualityreport},</if>
+            <if test="productformat != null">#{productformat},</if>
+            <if test="producetime != null">#{producetime},</if>
+            <if test="bands != null">#{bands},</if>
+            <if test="scenepath != null">#{scenepath},</if>
+            <if test="scenerow != null">#{scenerow},</if>
+            <if test="satpath != null">#{satpath},</if>
+            <if test="satrow != null">#{satrow},</if>
+            <if test="scenecount != null">#{scenecount},</if>
+            <if test="sceneshift != null">#{sceneshift},</if>
+            <if test="starttime != null">#{starttime},</if>
+            <if test="endtime != null">#{endtime},</if>
+            <if test="centertime != null">#{centertime},</if>
+            <if test="imagegsd != null">#{imagegsd},</if>
+            <if test="widthinpixels != null">#{widthinpixels},</if>
+            <if test="heightinpixels != null">#{heightinpixels},</if>
+            <if test="widthinmeters != null">#{widthinmeters},</if>
+            <if test="heightinmeters != null">#{heightinmeters},</if>
+            <if test="cloudpercent != null">#{cloudpercent},</if>
+            <if test="qualityinfo != null">#{qualityinfo},</if>
+            <if test="pixelbits != null">#{pixelbits},</if>
+            <if test="validpixelbits != null">#{validpixelbits},</if>
+            <if test="rollviewingangle != null">#{rollviewingangle},</if>
+            <if test="pitchviewingangle != null">#{pitchviewingangle},</if>
+            <if test="rollsatelliteangle != null">#{rollsatelliteangle},</if>
+            <if test="pitchsatelliteangle != null">#{pitchsatelliteangle},</if>
+            <if test="yawsatelliteangle != null">#{yawsatelliteangle},</if>
+            <if test="solarazimuth != null">#{solarazimuth},</if>
+            <if test="solarzenith != null">#{solarzenith},</if>
+            <if test="satelliteazimuth != null">#{satelliteazimuth},</if>
+            <if test="satellitezenith != null">#{satellitezenith},</if>
+            <if test="gainmode != null">#{gainmode},</if>
+            <if test="integrationtime != null">#{integrationtime},</if>
+            <if test="integrationlevel != null">#{integrationlevel},</if>
+            <if test="earthellipsoid != null">#{earthellipsoid},</if>
+            <if test="topleftlatitude != null">#{topleftlatitude},</if>
+            <if test="topleftlongitude != null">#{topleftlongitude},</if>
+            <if test="toprightlatitude != null">#{toprightlatitude},</if>
+            <if test="toprightlongitude != null">#{toprightlongitude},</if>
+            <if test="bottomrightlatitude != null">#{bottomrightlatitude},</if>
+            <if test="bottomrightlongitude != null">#{bottomrightlongitude},</if>
+            <if test="bottomleftlatitude != null">#{bottomleftlatitude},</if>
+            <if test="bottomleftlongitude != null">#{bottomleftlongitude},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUjnCase" parameterType="UjnCase">
+        update ujn_case
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="groupId != null">group_id = #{groupId},</if>
+            <if test="caseName != null">case_name = #{caseName},</if>
+            <if test="casePrice != null">case_price = #{casePrice},</if>
+            <if test="caseThumb != null">case_thumb = #{caseThumb},</if>
+            <if test="statelliteid != null">StatelliteID = #{statelliteid},</if>
+            <if test="sensorid != null">SensorID = #{sensorid},</if>
+            <if test="receivetime != null">ReceiveTime = #{receivetime},</if>
+            <if test="orbitid != null">OrbitID = #{orbitid},</if>
+            <if test="producetype != null">ProduceType = #{producetype},</if>
+            <if test="sceneid != null">SceneID = #{sceneid},</if>
+            <if test="productid != null">ProductID = #{productid},</if>
+            <if test="productlevel != null">ProductLevel = #{productlevel},</if>
+            <if test="productquality != null">ProductQuality = #{productquality},</if>
+            <if test="productqualityreport != null">ProductQualityReport = #{productqualityreport},</if>
+            <if test="productformat != null">ProductFormat = #{productformat},</if>
+            <if test="producetime != null">ProduceTime = #{producetime},</if>
+            <if test="bands != null">Bands = #{bands},</if>
+            <if test="scenepath != null">ScenePath = #{scenepath},</if>
+            <if test="scenerow != null">SceneRow = #{scenerow},</if>
+            <if test="satpath != null">SatPath = #{satpath},</if>
+            <if test="satrow != null">SatRow = #{satrow},</if>
+            <if test="scenecount != null">SceneCount = #{scenecount},</if>
+            <if test="sceneshift != null">SceneShift = #{sceneshift},</if>
+            <if test="starttime != null">StartTime = #{starttime},</if>
+            <if test="endtime != null">EndTime = #{endtime},</if>
+            <if test="centertime != null">CenterTime = #{centertime},</if>
+            <if test="imagegsd != null">ImageGSD = #{imagegsd},</if>
+            <if test="widthinpixels != null">WidthInPixels = #{widthinpixels},</if>
+            <if test="heightinpixels != null">HeightInPixels = #{heightinpixels},</if>
+            <if test="widthinmeters != null">WidthInMeters = #{widthinmeters},</if>
+            <if test="heightinmeters != null">HeightInMeters = #{heightinmeters},</if>
+            <if test="cloudpercent != null">CloudPercent = #{cloudpercent},</if>
+            <if test="qualityinfo != null">QualityInfo = #{qualityinfo},</if>
+            <if test="pixelbits != null">PixelBits = #{pixelbits},</if>
+            <if test="validpixelbits != null">ValidPixelBits = #{validpixelbits},</if>
+            <if test="rollviewingangle != null">RollViewingAngle = #{rollviewingangle},</if>
+            <if test="pitchviewingangle != null">PitchViewingAngle = #{pitchviewingangle},</if>
+            <if test="rollsatelliteangle != null">RollSatelliteAngle = #{rollsatelliteangle},</if>
+            <if test="pitchsatelliteangle != null">PitchSatelliteAngle = #{pitchsatelliteangle},</if>
+            <if test="yawsatelliteangle != null">YawSatelliteAngle = #{yawsatelliteangle},</if>
+            <if test="solarazimuth != null">SolarAzimuth = #{solarazimuth},</if>
+            <if test="solarzenith != null">SolarZenith = #{solarzenith},</if>
+            <if test="satelliteazimuth != null">SatelliteAzimuth = #{satelliteazimuth},</if>
+            <if test="satellitezenith != null">SatelliteZenith = #{satellitezenith},</if>
+            <if test="gainmode != null">GainMode = #{gainmode},</if>
+            <if test="integrationtime != null">IntegrationTime = #{integrationtime},</if>
+            <if test="integrationlevel != null">IntegrationLevel = #{integrationlevel},</if>
+            <if test="earthellipsoid != null">EarthEllipsoid = #{earthellipsoid},</if>
+            <if test="topleftlatitude != null">TopLeftLatitude = #{topleftlatitude},</if>
+            <if test="topleftlongitude != null">TopLeftLongitude = #{topleftlongitude},</if>
+            <if test="toprightlatitude != null">TopRightLatitude = #{toprightlatitude},</if>
+            <if test="toprightlongitude != null">TopRightLongitude = #{toprightlongitude},</if>
+            <if test="bottomrightlatitude != null">BottomRightLatitude = #{bottomrightlatitude},</if>
+            <if test="bottomrightlongitude != null">BottomRightLongitude = #{bottomrightlongitude},</if>
+            <if test="bottomleftlatitude != null">BottomLeftLatitude = #{bottomleftlatitude},</if>
+            <if test="bottomleftlongitude != null">BottomLeftLongitude = #{bottomleftlongitude},</if>
+        </trim>
+        where case_id = #{caseId}
+    </update>
+
+    <delete id="deleteUjnCaseById" parameterType="Long">
+        delete from ujn_case where case_id = #{caseId}
+    </delete>
+
+    <delete id="deleteUjnCaseByIds" parameterType="String">
+        delete from ujn_case where case_id in 
+        <foreach item="caseId" collection="array" open="(" separator="," close=")">
+            #{caseId}
+        </foreach>
+    </delete>
+</mapper>
