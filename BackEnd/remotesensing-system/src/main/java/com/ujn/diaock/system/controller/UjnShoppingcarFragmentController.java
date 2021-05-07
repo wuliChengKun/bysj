@@ -103,14 +103,4 @@ public class UjnShoppingcarFragmentController extends BaseController
         return toAjax(ujnShoppingcarFragmentService.deleteUjnShoppingcarFragmentByIds(shoppingcarFragmentIds));
     }
 
-    /**
-     * 用户将案例添加到购物车分片中
-     */
-    @PreAuthorize("@ss.hasPermi('system:fragment:addshoppingcar')")
-    @Log(title = "购物车分片",businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult addShoppingcarfragment(UjnCase ujnCase){
-        return null;
-    }
-
 }
