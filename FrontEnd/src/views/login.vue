@@ -62,7 +62,7 @@ export default {
       cookiePassword: "",
       loginForm: {
         username: "admin",
-        password: "admin123",
+        password: "990703",
         rememberMe: false,
         code: "",
         uuid: ""
