@@ -93,15 +93,15 @@ public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmen
 
     @Override
     public int addShoppingcarFragment(Long[] caseIds) {
-        int flg = 1;
+        int flag = 1;
         for(int i = 0;i < caseIds.length;i++){
             UjnShoppingcarFragment ujnShoppingcarFragment = new UjnShoppingcarFragment();
             ujnShoppingcarFragment.setCaseId(caseIds[i]);
-            flg=ujnShoppingcarFragmentMapper.insertUjnShoppingcarFragment(ujnShoppingcarFragment);
-            if(flg<1){
+            flag=ujnShoppingcarFragmentMapper.insertUjnShoppingcarFragment(ujnShoppingcarFragment);
+            if(flag<1){
                 break;
             }
         }
-        return flg;
+        return flag;
     }
 }
