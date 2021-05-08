@@ -230,6 +230,17 @@
           v-hasPermi="['system:case:export']"
         >导出</el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-goods"
+          size="mini"
+          :disabled="multiple"
+          @click="handleAddShoppingcarFragment"
+          v-has-permi="['system:fragment:addshoppingcarfragment']"
+          >加入购物车</el-button>
+      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -366,6 +377,7 @@
 
 <script>
 import { listCase, getCase, delCase, addCase, updateCase, exportCase } from "@/api/system/case";
+import { addShoppingcarFragment } from '@/api/system/fragment'
 import FileUpload from '@/components/FileUpload';
 
 export default {
@@ -550,6 +562,21 @@ export default {
         }).then(response => {
           this.download(response.msg);
         })
+    },
+    /** 加入购物车分片 */
+    handleAddShoppingcarFragment(row) {
+      const caseIds = row.caseId || this.ids;
+      this.$confirm('是否加入编号为”' + caseIds + '"的案例?',"通知",{
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(function() {
+        return addShoppingcarFragment(caseIds);
+      }).then(() => {
+        this.getList();
+        this.msgSuccess("加入成功");
+      })
+
     }
   }
 };

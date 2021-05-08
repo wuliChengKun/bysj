@@ -5,6 +5,7 @@ import java.util.List;
 import com.ujn.diaock.system.domain.UjnCase;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -101,6 +102,20 @@ public class UjnShoppingcarFragmentController extends BaseController
     public AjaxResult remove(@PathVariable Long[] shoppingcarFragmentIds)
     {
         return toAjax(ujnShoppingcarFragmentService.deleteUjnShoppingcarFragmentByIds(shoppingcarFragmentIds));
+    }
+
+    /**
+     * 用户将案例加入购物车分片
+     */
+    @PreAuthorize("@ss.hasPermi('system:a:a')")
+    /*@Log(title = "购物车分片", businessType = BusinessType.INSERT)*/
+    @PostMapping("/addShoppingcarFragment/{caseIds}")
+    @Transactional
+    public AjaxResult addShoppingcarFragment(@PathVariable Long[] caseIds){
+        System.out.println("1111111111111111");
+        System.out.println(caseIds[0]);
+        System.out.println("0000000000000000000000000");
+        return toAjax(ujnShoppingcarFragmentService.addShoppingcarFragment(caseIds));
     }
 
 }

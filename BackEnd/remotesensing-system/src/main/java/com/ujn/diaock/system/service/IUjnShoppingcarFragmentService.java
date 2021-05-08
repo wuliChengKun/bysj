@@ -59,4 +59,9 @@ public interface IUjnShoppingcarFragmentService
      * @return 结果
      */
     public int deleteUjnShoppingcarFragmentById(Long shoppingcarFragmentId);
+
+    /**
+     * 用户将案例加入购物车分片中
+     */
+    public int addShoppingcarFragment(Long[] caseIds);
 }
