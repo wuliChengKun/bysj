@@ -51,11 +51,3 @@ export function exportCase(query) {
     params: query
   })
 }
-
-//加入购物车
-export function addShoppingcar1(caseIds) {
-  return request({
-    url: '/system/fragment/' + caseIds,
-    method: 'put'
-  })
-}

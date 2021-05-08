@@ -24,7 +24,7 @@ import com.ujn.diaock.common.core.page.TableDataInfo;
  * 遥感案例Controller
  *
  * @author diaock
- * @date 2021-05-07
+ * @date 2021-05-08
  */
 @RestController
 @RequestMapping("/system/case")

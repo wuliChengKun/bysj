@@ -7,7 +7,7 @@ import com.ujn.diaock.system.domain.UjnCase;
  * 遥感案例Service接口
  * 
  * @author diaock
- * @date 2021-05-07
+ * @date 2021-05-08
  */
 public interface IUjnCaseService 
 {
