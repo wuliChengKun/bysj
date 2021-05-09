@@ -37,9 +37,6 @@ public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmen
     @Autowired
     private UjnShoppingcarMapper ujnShoppingcarMapper;
 
-    @Autowired
-    private UjnShoppingcarServiceImpl ujnShoppingcarService;
-
     /**
      * 查询购物车分片
      *
@@ -120,11 +117,11 @@ public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmen
         Long userId = ((LoginUser) authentication.getPrincipal()).getUser().getUserId();
 
         //看看用户有没有购物车，有的话插入一个分片，没有的话新建一个购物车
-        UjnShoppingcar example = ujnShoppingcarService.selectUjnShoppingcarByUserId(userId);
+        UjnShoppingcar example = ujnShoppingcarMapper.selectUjnShoppingcarByUserId(userId);
         if(example == null){
             UjnShoppingcar ujnShoppingcar = new UjnShoppingcar();
             ujnShoppingcar.setUserId(userId);
-            ujnShoppingcarService.insertUjnShoppingcar(ujnShoppingcar);
+            ujnShoppingcarMapper.insertUjnShoppingcar(ujnShoppingcar);
         }
         else{
             System.out.println("用户已有购物车......");
@@ -133,7 +130,7 @@ public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmen
         for(int i = 0;i < caseIds.length;i++){
             UjnShoppingcarFragment ujnShoppingcarFragment = new UjnShoppingcarFragment();
             ujnShoppingcarFragment.setCaseId(caseIds[i]);
-            ujnShoppingcarFragment.setShoppingcarId(ujnShoppingcarService.selectUjnShoppingcarByUserId(userId).getShoppingcarId());
+            ujnShoppingcarFragment.setShoppingcarId(ujnShoppingcarMapper.selectUjnShoppingcarByUserId(userId).getShoppingcarId());
             flag=ujnShoppingcarFragmentMapper.insertUjnShoppingcarFragment(ujnShoppingcarFragment);
             if(flag<1){
                 break;
