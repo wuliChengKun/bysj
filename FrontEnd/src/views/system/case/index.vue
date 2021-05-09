@@ -569,7 +569,7 @@ export default {
       this.$confirm('是否加入编号为”' + caseIds + '"的案例?',"通知",{
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "info"//提示类型 success/info/warning/error
       }).then(function() {
         return addShoppingcarFragment(caseIds);
       }).then(() => {

@@ -1,11 +1,24 @@
 package com.ujn.diaock.system.service.impl;
 
 import java.util.List;
+
+import com.ujn.diaock.common.constant.UserConstants;
+import com.ujn.diaock.common.core.domain.model.LoginUser;
+import com.ujn.diaock.system.domain.UjnShoppingcar;
+import com.ujn.diaock.system.service.IUjnShoppingcarService;
+import org.apache.commons.fileupload.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.annotation.UserConfigurations;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.ujn.diaock.system.mapper.UjnShoppingcarFragmentMapper;
 import com.ujn.diaock.system.domain.UjnShoppingcarFragment;
 import com.ujn.diaock.system.service.IUjnShoppingcarFragmentService;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 购物车分片Service业务层处理
@@ -14,6 +27,7 @@ import com.ujn.diaock.system.service.IUjnShoppingcarFragmentService;
  * @date 2021-05-05
  */
 @Service
+@Transactional
 public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmentService
 {
     @Autowired
@@ -94,6 +108,17 @@ public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmen
     @Override
     public int addShoppingcarFragment(Long[] caseIds) {
         int flag = 1;
+        //获得userId
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = ((LoginUser) authentication.getPrincipal()).getUser().getUserId();
+
+        UjnShoppingcar ujnShoppingcar = new UjnShoppingcar();
+        ujnShoppingcar.setUserId(userId);
+        Long id = 1L;
+        ujnShoppingcar.setShoppingcarId(id);
+        UjnShoppingcarServiceImpl ujnShoppingcarService = new UjnShoppingcarServiceImpl();
+        ujnShoppingcarService.insertUjnShoppingcar(ujnShoppingcar);
+
         for(int i = 0;i < caseIds.length;i++){
             UjnShoppingcarFragment ujnShoppingcarFragment = new UjnShoppingcarFragment();
             ujnShoppingcarFragment.setCaseId(caseIds[i]);
