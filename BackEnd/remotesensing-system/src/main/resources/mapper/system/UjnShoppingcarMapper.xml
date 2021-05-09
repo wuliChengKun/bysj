@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ujn.diaock.system.mapper.UjnShoppingcarMapper">
-    
+
     <resultMap type="UjnShoppingcar" id="UjnShoppingcarResult">
         <result property="shoppingcarId"    column="shoppingcar_id"    />
         <result property="userId"    column="user_id"    />
@@ -15,16 +15,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectUjnShoppingcarList" parameterType="UjnShoppingcar" resultMap="UjnShoppingcarResult">
         <include refid="selectUjnShoppingcarVo"/>
-        <where>  
+        <where>
             <if test="userId != null "> and user_id = #{userId}</if>
         </where>
     </select>
-    
+
     <select id="selectUjnShoppingcarById" parameterType="Long" resultMap="UjnShoppingcarResult">
         <include refid="selectUjnShoppingcarVo"/>
         where shoppingcar_id = #{shoppingcarId}
     </select>
-        
+
+    <select id="selectUjnShoppingcarByUserId" parameterType="Long" resultMap="UjnShoppingcarResult">
+        <include refid="selectUjnShoppingcarVo"/>
+        where user_id = #{userId}
+    </select>
+
     <insert id="insertUjnShoppingcar" parameterType="UjnShoppingcar" useGeneratedKeys="true" keyProperty="shoppingcarId">
         insert into ujn_shoppingcar
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -48,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteUjnShoppingcarByIds" parameterType="String">
-        delete from ujn_shoppingcar where shoppingcar_id in 
+        delete from ujn_shoppingcar where shoppingcar_id in
         <foreach item="shoppingcarId" collection="array" open="(" separator="," close=")">
             #{shoppingcarId}
         </foreach>

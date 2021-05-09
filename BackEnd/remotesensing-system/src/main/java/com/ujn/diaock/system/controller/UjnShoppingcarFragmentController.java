@@ -114,7 +114,6 @@ public class UjnShoppingcarFragmentController extends BaseController
     @PostMapping("/addShoppingcarFragment/{caseIds}")
     @Transactional
     public AjaxResult addShoppingcarFragment(@PathVariable Long[] caseIds){
-
         return toAjax(ujnShoppingcarFragmentService.addShoppingcarFragment(caseIds));
     }
 

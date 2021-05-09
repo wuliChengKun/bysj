@@ -22,6 +22,14 @@ public interface UjnShoppingcarMapper
     public UjnShoppingcar selectUjnShoppingcarById(Long shoppingcarId);
 
     /**
+     * 按照userId查询购物车
+     *
+     * @param userId 用户ID
+     * @return 购物车
+     */
+    public UjnShoppingcar selectUjnShoppingcarByUserId(Long userId);
+
+    /**
      * 查询购物车列表
      *
      * @param ujnShoppingcar 购物车

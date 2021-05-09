@@ -5,6 +5,7 @@ import java.util.List;
 import com.ujn.diaock.common.constant.UserConstants;
 import com.ujn.diaock.common.core.domain.model.LoginUser;
 import com.ujn.diaock.system.domain.UjnShoppingcar;
+import com.ujn.diaock.system.mapper.UjnShoppingcarMapper;
 import com.ujn.diaock.system.service.IUjnShoppingcarService;
 import org.apache.commons.fileupload.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmen
 {
     @Autowired
     private UjnShoppingcarFragmentMapper ujnShoppingcarFragmentMapper;
+
+    @Autowired
+    private UjnShoppingcarMapper ujnShoppingcarMapper;
+
+    @Autowired
+    private UjnShoppingcarServiceImpl ujnShoppingcarService;
 
     /**
      * 查询购物车分片
@@ -112,16 +119,21 @@ public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmen
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = ((LoginUser) authentication.getPrincipal()).getUser().getUserId();
 
-        UjnShoppingcar ujnShoppingcar = new UjnShoppingcar();
-        ujnShoppingcar.setUserId(userId);
-        Long id = 1L;
-        ujnShoppingcar.setShoppingcarId(id);
-        UjnShoppingcarServiceImpl ujnShoppingcarService = new UjnShoppingcarServiceImpl();
-        ujnShoppingcarService.insertUjnShoppingcar(ujnShoppingcar);
+        //看看用户有没有购物车，有的话插入一个分片，没有的话新建一个购物车
+        UjnShoppingcar example = ujnShoppingcarService.selectUjnShoppingcarByUserId(userId);
+        if(example == null){
+            UjnShoppingcar ujnShoppingcar = new UjnShoppingcar();
+            ujnShoppingcar.setUserId(userId);
+            ujnShoppingcarService.insertUjnShoppingcar(ujnShoppingcar);
+        }
+        else{
+            System.out.println("用户已有购物车......");
+        }
 
         for(int i = 0;i < caseIds.length;i++){
             UjnShoppingcarFragment ujnShoppingcarFragment = new UjnShoppingcarFragment();
             ujnShoppingcarFragment.setCaseId(caseIds[i]);
+            ujnShoppingcarFragment.setShoppingcarId(ujnShoppingcarService.selectUjnShoppingcarByUserId(userId).getShoppingcarId());
             flag=ujnShoppingcarFragmentMapper.insertUjnShoppingcarFragment(ujnShoppingcarFragment);
             if(flag<1){
                 break;

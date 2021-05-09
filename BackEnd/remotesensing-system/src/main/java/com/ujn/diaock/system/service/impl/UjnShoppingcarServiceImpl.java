@@ -32,6 +32,16 @@ public class UjnShoppingcarServiceImpl implements IUjnShoppingcarService
     }
 
     /**
+     * 按照userId查询购物车
+     * @param userId 用户ID
+     * @return
+     */
+    @Override
+    public UjnShoppingcar selectUjnShoppingcarByUserId(Long userId) {
+        return ujnShoppingcarMapper.selectUjnShoppingcarByUserId(userId);
+    }
+
+    /**
      * 查询购物车列表
      *
      * @param ujnShoppingcar 购物车
