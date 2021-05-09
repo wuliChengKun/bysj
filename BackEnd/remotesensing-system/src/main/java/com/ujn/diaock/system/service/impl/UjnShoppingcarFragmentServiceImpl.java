@@ -2,14 +2,10 @@ package com.ujn.diaock.system.service.impl;
 
 import java.util.List;
 
-import com.ujn.diaock.common.constant.UserConstants;
 import com.ujn.diaock.common.core.domain.model.LoginUser;
 import com.ujn.diaock.system.domain.UjnShoppingcar;
 import com.ujn.diaock.system.mapper.UjnShoppingcarMapper;
-import com.ujn.diaock.system.service.IUjnShoppingcarService;
-import org.apache.commons.fileupload.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.annotation.UserConfigurations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,9 +13,6 @@ import com.ujn.diaock.system.mapper.UjnShoppingcarFragmentMapper;
 import com.ujn.diaock.system.domain.UjnShoppingcarFragment;
 import com.ujn.diaock.system.service.IUjnShoppingcarFragmentService;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 购物车分片Service业务层处理
