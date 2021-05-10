@@ -76,6 +76,17 @@
           v-hasPermi="['system:order:export']"
         >导出</el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-download"
+          size="mini"
+          :disabled="multiple"
+          @click="handleCheck"
+          v-hasPermi="['']"
+        >审核</el-button>
+      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -182,6 +193,7 @@ export default {
         shoppingcarId: null,
         userId: null,
         createdDate: null,
+
       },
       // 表单参数
       form: {},
@@ -296,6 +308,11 @@ export default {
         }).then(response => {
           this.download(response.msg);
         })
+    },
+    /** 审核 */
+    handleCheck(row) {
+      const orderIds = row.orderCheckId || this.ids;
+      this.$confirm('是否确认将该条数据审核通过')
     }
   }
 };

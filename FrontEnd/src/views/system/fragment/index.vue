@@ -74,6 +74,7 @@
           plain
           icon="el-icon-s-goods"
           size="mini"
+          :disabled="multiple"
           @click="handlePay"
           v-hasPermi="['system:order:pay']"
           >下单</el-button>
@@ -166,6 +167,10 @@ export default {
         pageSize: 10,
         shoppingcarId: null,
         caseId: null
+
+
+
+
       },
       // 表单参数
       form: {},

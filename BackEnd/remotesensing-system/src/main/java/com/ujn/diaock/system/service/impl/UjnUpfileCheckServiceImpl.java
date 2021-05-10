@@ -52,7 +52,7 @@ public class UjnUpfileCheckServiceImpl implements IUjnUpfileCheckService
     @Override
     public int insertUjnUpfileCheck(UjnUpfileCheck ujnUpfileCheck)
     {
-        return ujnUpfileCheckMapper.insertUjnUpfileCheck(ujnUpfileCheck);
+       return ujnUpfileCheckMapper.insertUjnUpfileCheck(ujnUpfileCheck);
     }
 
     /**
