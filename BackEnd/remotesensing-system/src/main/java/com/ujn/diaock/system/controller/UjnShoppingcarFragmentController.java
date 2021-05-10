@@ -45,7 +45,7 @@ public class UjnShoppingcarFragmentController extends BaseController
     public TableDataInfo list(UjnShoppingcarFragment ujnShoppingcarFragment)
     {
         startPage();
-        List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentList(ujnShoppingcarFragment);
+        List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentList (ujnShoppingcarFragment);
         return getDataTable(list);
     }
 
