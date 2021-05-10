@@ -51,3 +51,11 @@ export function exportOrder(query) {
     params: query
   })
 }
+
+//加入订单分片
+export function addOrderFragment(fragmentIds) {
+  return request({
+    url: '/system/order/addOrderFragment' + fragmentIds,
+    method: 'post',
+  })
+}

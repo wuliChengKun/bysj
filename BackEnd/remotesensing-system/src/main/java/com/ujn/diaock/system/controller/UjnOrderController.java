@@ -100,4 +100,14 @@ public class UjnOrderController extends BaseController
     {
         return toAjax(ujnOrderService.deleteUjnOrderByIds(orderIds));
     }
+
+    /**
+     * 用户加入订单分片
+     */
+    @PreAuthorize("@ss.hasPermi('system:order:pay')")
+    @Log(title = "订单", businessType = BusinessType.INSERT)
+    @PostMapping("/addOrderFragment{fragmentIds}")
+    public AjaxResult addOrderFragment(@PathVariable Long[] fragmentIds){
+        return toAjax(ujnOrderService.addOrderFragment(fragmentIds));
+    }
 }

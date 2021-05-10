@@ -84,9 +84,14 @@
       <el-table-column label="订单ID" align="center" prop="orderId" />
       <el-table-column label="购物车ID" align="center" prop="shoppingcarId" />
       <el-table-column label="用户ID" align="center" prop="userId" />
-      <el-table-column label="订单创建Date" align="center" prop="createdDate" width="180">
+      <el-table-column label="订单创建日期" align="center" prop="createdDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createdDate, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="订单审核状态" align="center">
+        <template slot-scope="scope">
+          <span><el-tag>未审核</el-tag></span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -176,7 +181,7 @@ export default {
         pageSize: 10,
         shoppingcarId: null,
         userId: null,
-        createdDate: null
+        createdDate: null,
       },
       // 表单参数
       form: {},

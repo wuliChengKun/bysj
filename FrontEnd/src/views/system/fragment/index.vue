@@ -68,6 +68,16 @@
           v-hasPermi="['system:fragment:export']"
         >导出</el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-s-goods"
+          size="mini"
+          @click="handlePay"
+          v-hasPermi="['system:order:pay']"
+          >下单</el-button>
+      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -124,6 +134,7 @@
 
 <script>
 import { listFragment, getFragment, delFragment, addFragment, updateFragment, exportFragment } from "@/api/system/fragment";
+import {addOrderFragment} from '@/api/system/order';
 
 export default {
   name: "Fragment",
@@ -268,6 +279,21 @@ export default {
         }).then(response => {
           this.download(response.msg);
         })
+    },
+    /** 下单按钮操作 */
+    handlePay(row) {
+      const fragmentIds = row.shoppingcarFragmentId || this.ids;
+      this.$confirm('是否下单编号为“' + fragmentIds + '"的案例?',"通知",{
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "info"
+      }).then(function() {
+        return addOrderFragment(fragmentIds);
+      }).then(() => {
+        this.getList();
+        this.msgSuccess("加入成功");
+      })
+
     }
   }
 };

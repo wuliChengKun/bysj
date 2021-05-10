@@ -70,6 +70,9 @@ public interface IUjnShoppingcarFragmentService
 
     /**
      * 用户将案例加入购物车分片中
+     *
+     * @param caseIds 案例ID
+     * @return 结果
      */
     public int addShoppingcarFragment(Long[] caseIds);
 }
