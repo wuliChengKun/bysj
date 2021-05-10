@@ -2,8 +2,12 @@ package com.ujn.diaock.system.controller;
 
 import java.util.List;
 
+import com.ujn.diaock.common.core.domain.model.LoginUser;
+import com.ujn.diaock.system.service.IUjnShoppingcarService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.token.Token;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +41,10 @@ public class UjnShoppingcarFragmentController extends BaseController
     @Autowired
     private IUjnShoppingcarFragmentService ujnShoppingcarFragmentService;
 
+    @Autowired
+    private IUjnShoppingcarService ujnShoppingcarService;
+
+
     /**
      * 查询购物车分片列表
      */
@@ -45,7 +53,14 @@ public class UjnShoppingcarFragmentController extends BaseController
     public TableDataInfo list(UjnShoppingcarFragment ujnShoppingcarFragment)
     {
         startPage();
-        List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentList (ujnShoppingcarFragment);
+
+        //List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentList (ujnShoppingcarFragment);
+
+        //获得userId
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = ((LoginUser) authentication.getPrincipal()).getUser().getUserId();
+
+        List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentListByShoppingcarId(ujnShoppingcarService.selectUjnShoppingcarByUserId(userId).getShoppingcarId());
         return getDataTable(list);
     }
 

@@ -55,6 +55,16 @@ public class UjnShoppingcarFragmentServiceImpl implements IUjnShoppingcarFragmen
     }
 
     /**
+     *通过购物车Id查询购物车分片
+     * @param shoppingcarId 购物车ID
+     * @return
+     */
+    @Override
+    public List<UjnShoppingcarFragment> selectUjnShoppingcarFragmentListByShoppingcarId(Long shoppingcarId) {
+        return ujnShoppingcarFragmentMapper.selectUjnShoppingcarFragmentListByShoppingcarId(shoppingcarId);
+    }
+
+    /**
      * 新增购物车分片
      *
      * @param ujnShoppingcarFragment 购物车分片

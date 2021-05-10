@@ -29,6 +29,14 @@ public interface IUjnShoppingcarFragmentService
     public List<UjnShoppingcarFragment> selectUjnShoppingcarFragmentList(UjnShoppingcarFragment ujnShoppingcarFragment);
 
     /**
+     *通过购物车Id查询购物车分片Id
+     *
+     * @param shoppingcarId 购物车ID
+     * @return 购物车分片集合
+     */
+    public List<UjnShoppingcarFragment> selectUjnShoppingcarFragmentListByShoppingcarId(Long shoppingcarId);
+
+    /**
      * 新增购物车分片
      *
      * @param ujnShoppingcarFragment 购物车分片

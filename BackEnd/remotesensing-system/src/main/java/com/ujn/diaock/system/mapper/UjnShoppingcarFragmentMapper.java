@@ -30,6 +30,12 @@ public interface UjnShoppingcarFragmentMapper
     public List<UjnShoppingcarFragment> selectUjnShoppingcarFragmentList(UjnShoppingcarFragment ujnShoppingcarFragment);
 
     /**
+     * 通过购物车Id查询购物车分片
+     * @param shoppingcarId
+     * @return
+     */
+    public List<UjnShoppingcarFragment> selectUjnShoppingcarFragmentListByShoppingcarId(Long shoppingcarId);
+    /**
      * 新增购物车分片
      *
      * @param ujnShoppingcarFragment 购物车分片
