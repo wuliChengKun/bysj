@@ -3,6 +3,7 @@ package com.ujn.diaock.system.controller;
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -99,5 +100,15 @@ public class UjnOrderCheckController extends BaseController
     public AjaxResult remove(@PathVariable Long[] orderCheckIds)
     {
         return toAjax(ujnOrderCheckService.deleteUjnOrderCheckByIds(orderCheckIds));
+    }
+
+    /**
+     * 管理员审核订单
+     */
+    @PreAuthorize("@ss.hasPermi('system:check:checkPass')")
+    @Log(title = "订单审核", businessType = BusinessType.INSERT)
+    @PostMapping("/checkPass/{orderIds}")
+    public AjaxResult checkPass(@PathVariable Long[] orderIds){
+        return toAjax(ujnOrderCheckService.addOrderCheck(orderIds));
     }
 }

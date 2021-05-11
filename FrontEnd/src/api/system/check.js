@@ -51,3 +51,9 @@ export function exportCheck(query) {
     params: query
   })
 }
+export function checkPass(orderIds) {
+  return request({
+    url: '/system/check/checkPass/' + orderIds,
+    method: 'post',
+  })
+}

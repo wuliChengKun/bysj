@@ -154,7 +154,6 @@ public class UjnShoppingcarFragmentController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:fragment:addshoppingcarfragment')")
     @Log(title = "购物车分片", businessType = BusinessType.INSERT)
     @PostMapping("/addShoppingcarFragment/{caseIds}")
-    @Transactional
     public AjaxResult addShoppingcarFragment(@PathVariable Long[] caseIds){
         return toAjax(ujnShoppingcarFragmentService.addShoppingcarFragment(caseIds));
     }

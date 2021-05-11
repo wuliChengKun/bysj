@@ -89,6 +89,11 @@
           <span>{{ parseTime(scope.row.checkDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="订单审核状态" align="center">
+        <template slot-scope="scope">
+          <span><el-tag color="green">审核通过</el-tag></span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button

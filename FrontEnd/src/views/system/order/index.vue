@@ -84,7 +84,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleCheck"
-          v-hasPermi="['']"
+          v-hasPermi="['system:check:checkPass']"
         >审核</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -161,6 +161,7 @@
 
 <script>
 import { listOrder, getOrder, delOrder, addOrder, updateOrder, exportOrder } from "@/api/system/order";
+import {checkPass} from '@/api/system/check'
 
 export default {
   name: "Order",
@@ -193,7 +194,6 @@ export default {
         shoppingcarId: null,
         userId: null,
         createdDate: null,
-
       },
       // 表单参数
       form: {},
@@ -311,8 +311,18 @@ export default {
     },
     /** 审核 */
     handleCheck(row) {
-      const orderIds = row.orderCheckId || this.ids;
-      this.$confirm('是否确认将该条数据审核通过')
+      const orderIds = row.orderId || this.ids;
+      this.$confirm('是否确认审核通过订单号为"' + orderIds + '"的订单?',"通知",{
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "info"
+      }).then(function() {
+        return checkPass(orderIds);
+      }).then(() => {
+        this.getList();
+        this.msgSuccess("审核通过");
+      })
+
     }
   }
 };
