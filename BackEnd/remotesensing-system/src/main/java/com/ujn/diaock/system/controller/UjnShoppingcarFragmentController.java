@@ -47,20 +47,23 @@ public class UjnShoppingcarFragmentController extends BaseController
     @Autowired
     private IUjnShoppingcarService ujnShoppingcarService;
 
-    class aa extends UjnShoppingcarFragment{
+    class EndFragment extends UjnShoppingcarFragment{
         private
-        BigDecimal price;
+        BigDecimal casePrice;
 
-        public BigDecimal getPrice() {
-            return price;
+        public BigDecimal getCasePrice() {
+            return casePrice;
         }
 
-        public void setPrice(BigDecimal price) {
-            this.price = price;
+        public void setCasePrice(BigDecimal price) {
+            this.casePrice = price;
         }
 
-        public aa(UjnShoppingcarFragment ujnShoppingcarFragment) {
-            //ujnShoppingcarFragment
+        public EndFragment(UjnShoppingcarFragment ujnShoppingcarFragment,BigDecimal casePrice) {
+            this.setShoppingcarFragmentId(ujnShoppingcarFragment.getShoppingcarFragmentId());
+            this.setShoppingcarId(ujnShoppingcarFragment.getShoppingcarId());
+            this.setCaseId(ujnShoppingcarFragment.getCaseId());
+            this.setCasePrice(casePrice);
         }
     }
     /**
@@ -79,15 +82,13 @@ public class UjnShoppingcarFragmentController extends BaseController
         Long userId = ((LoginUser) authentication.getPrincipal()).getUser().getUserId();
 
         List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentListByShoppingcarId(ujnShoppingcarService.selectUjnShoppingcarByUserId(userId).getShoppingcarId());
-        /*List<aa> newList =new ArrayList();
-        List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentListByShoppingcarId(ujnShoppingcarService.selectUjnShoppingcarByUserId(userId).getShoppingcarId());
-        for(UjnShoppingcarFragment i:list){
-            UjnCase ujnCase=ujnCaseService.selectUjnCaseById(i.getCaseId());
-            aa a=new aa(i);
-            a.setPrice(ujnCase.getCasePrice());
-            newList.add(a);
-        }*/
-        return getDataTable(list);
+        List<EndFragment> arrayList = new ArrayList();
+        for(UjnShoppingcarFragment i : list){
+            UjnCase ujnCase = ujnCaseService.selectUjnCaseById(i.getCaseId());
+            EndFragment endFragment = new EndFragment(i,ujnCase.getCasePrice());
+            arrayList.add(endFragment);
+        }
+        return getDataTable(arrayList);
     }
 
     /**

@@ -87,6 +87,7 @@
       <el-table-column label="购物车分片ID" align="center" prop="shoppingcarFragmentId" />
       <el-table-column label="购物车ID" align="center" prop="shoppingcarId" />
       <el-table-column label="案例ID" align="center" prop="caseId" />
+      <el-table-column label="案例价格" align="center" prop="casePrice"/>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -166,7 +167,8 @@ export default {
         pageNum: 1,
         pageSize: 10,
         shoppingcarId: null,
-        caseId: null
+        caseId: null,
+        casePrice: null
       },
       // 表单参数
       form: {},
