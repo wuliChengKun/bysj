@@ -42,6 +42,7 @@ public class UjnShoppingcarController extends BaseController
     {
         startPage();
         List<UjnShoppingcar> list = ujnShoppingcarService.selectUjnShoppingcarList(ujnShoppingcar);
+        //List<UjnShoppingcar> list1 = (List<UjnShoppingcar>) ujnShoppingcarService.selectUjnShoppingcarByUserId(ujnShoppingcar.getUserId());
         return getDataTable(list);
     }
 

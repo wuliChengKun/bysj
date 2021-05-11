@@ -1,15 +1,17 @@
 package com.ujn.diaock.system.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ujn.diaock.common.core.domain.model.LoginUser;
+import com.ujn.diaock.system.domain.UjnCase;
+import com.ujn.diaock.system.service.IUjnCaseService;
 import com.ujn.diaock.system.service.IUjnShoppingcarService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.token.Token;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,11 +42,27 @@ public class UjnShoppingcarFragmentController extends BaseController
 {
     @Autowired
     private IUjnShoppingcarFragmentService ujnShoppingcarFragmentService;
-
+    @Autowired
+    private IUjnCaseService ujnCaseService;
     @Autowired
     private IUjnShoppingcarService ujnShoppingcarService;
 
+    class aa extends UjnShoppingcarFragment{
+        private
+        BigDecimal price;
 
+        public BigDecimal getPrice() {
+            return price;
+        }
+
+        public void setPrice(BigDecimal price) {
+            this.price = price;
+        }
+
+        public aa(UjnShoppingcarFragment ujnShoppingcarFragment) {
+            //ujnShoppingcarFragment
+        }
+    }
     /**
      * 查询购物车分片列表
      */
@@ -61,6 +79,14 @@ public class UjnShoppingcarFragmentController extends BaseController
         Long userId = ((LoginUser) authentication.getPrincipal()).getUser().getUserId();
 
         List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentListByShoppingcarId(ujnShoppingcarService.selectUjnShoppingcarByUserId(userId).getShoppingcarId());
+        /*List<aa> newList =new ArrayList();
+        List<UjnShoppingcarFragment> list = ujnShoppingcarFragmentService.selectUjnShoppingcarFragmentListByShoppingcarId(ujnShoppingcarService.selectUjnShoppingcarByUserId(userId).getShoppingcarId());
+        for(UjnShoppingcarFragment i:list){
+            UjnCase ujnCase=ujnCaseService.selectUjnCaseById(i.getCaseId());
+            aa a=new aa(i);
+            a.setPrice(ujnCase.getCasePrice());
+            newList.add(a);
+        }*/
         return getDataTable(list);
     }
 

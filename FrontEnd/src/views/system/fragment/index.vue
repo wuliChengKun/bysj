@@ -167,10 +167,6 @@ export default {
         pageSize: 10,
         shoppingcarId: null,
         caseId: null
-
-
-
-
       },
       // 表单参数
       form: {},
