@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ujn.diaock.system.mapper.UjnOrderMapper">
-    
+
     <resultMap type="UjnOrder" id="UjnOrderResult">
         <result property="orderId"    column="order_id"    />
         <result property="shoppingcarId"    column="shoppingcar_id"    />
@@ -17,18 +17,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectUjnOrderList" parameterType="UjnOrder" resultMap="UjnOrderResult">
         <include refid="selectUjnOrderVo"/>
-        <where>  
+        <where>
             <if test="shoppingcarId != null "> and shoppingcar_id = #{shoppingcarId}</if>
             <if test="userId != null "> and user_id = #{userId}</if>
             <if test="createdDate != null "> and created_date = #{createdDate}</if>
         </where>
     </select>
-    
+
     <select id="selectUjnOrderById" parameterType="Long" resultMap="UjnOrderResult">
         <include refid="selectUjnOrderVo"/>
         where order_id = #{orderId}
     </select>
-        
+
+    <select id="selectUjnOrderListByUserId" parameterType="Long" resultMap="UjnOrderResult">
+        <include refid="selectUjnOrderVo"/>
+        where user_id = #{userId}
+    </select>
+
     <insert id="insertUjnOrder" parameterType="UjnOrder" useGeneratedKeys="true" keyProperty="orderId">
         insert into ujn_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -58,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteUjnOrderByIds" parameterType="String">
-        delete from ujn_order where order_id in 
+        delete from ujn_order where order_id in
         <foreach item="orderId" collection="array" open="(" separator="," close=")">
             #{orderId}
         </foreach>

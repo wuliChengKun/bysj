@@ -55,6 +55,16 @@ public class UjnOrderServiceImpl implements IUjnOrderService
     }
 
     /**
+     * 通过用户Id查询订单列表
+     * @param userId 用户ID
+     * @return 订单结合
+     */
+    @Override
+    public List<UjnOrder> selectUjnOrderListByUserId(Long userId) {
+        return ujnOrderMapper.selectUjnOrderListByUserId(userId);
+    }
+
+    /**
      * 新增订单
      *
      * @param ujnOrder 订单

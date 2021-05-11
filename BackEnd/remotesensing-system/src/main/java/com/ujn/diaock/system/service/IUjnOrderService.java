@@ -28,6 +28,14 @@ public interface IUjnOrderService
     public List<UjnOrder> selectUjnOrderList(UjnOrder ujnOrder);
 
     /**
+     * 通过用户ID查询订单列表
+     *
+     * @param userId 用户ID
+     * @return 订单集合
+     */
+    public List<UjnOrder> selectUjnOrderListByUserId(Long userId);
+
+    /**
      * 新增订单
      *
      * @param ujnOrder 订单

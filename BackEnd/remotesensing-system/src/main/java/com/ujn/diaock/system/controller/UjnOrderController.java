@@ -1,8 +1,12 @@
 package com.ujn.diaock.system.controller;
 
 import java.util.List;
+
+import com.ujn.diaock.common.core.domain.model.LoginUser;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,8 +44,13 @@ public class UjnOrderController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(UjnOrder ujnOrder)
     {
+        //获得userId
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long userId = ((LoginUser) authentication.getPrincipal()).getUser().getUserId();
+
         startPage();
-        List<UjnOrder> list = ujnOrderService.selectUjnOrderList(ujnOrder);
+        //List<UjnOrder> list = ujnOrderService.selectUjnOrderList(ujnOrder);
+        List<UjnOrder> list = ujnOrderService.selectUjnOrderListByUserId(userId);
         return getDataTable(list);
     }
 

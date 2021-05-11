@@ -60,4 +60,11 @@ public interface UjnOrderMapper
      * @return 结果
      */
     public int deleteUjnOrderByIds(Long[] orderIds);
+
+    /**
+     * 通过用户Id查询订单
+     * @param userId 用户ID
+     * @return
+     */
+    public List<UjnOrder> selectUjnOrderListByUserId(Long userId);
 }
