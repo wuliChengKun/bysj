@@ -6,6 +6,7 @@ import com.ujn.diaock.common.annotation.Excel;
 import com.ujn.diaock.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.stereotype.Repository;
 
 /**
  * 上传文件对象 ujn_file
@@ -13,6 +14,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author diaock
  * @date 2021-05-05
  */
+@Repository
 public class UjnFile extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
