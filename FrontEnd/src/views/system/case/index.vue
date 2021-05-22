@@ -277,6 +277,13 @@
           <el-button
             size="mini"
             type="text"
+            icon="el-icon-download"
+            @click="handleDownload()"
+            v-has-permi="[]"
+            >下载</el-button>
+          <el-button
+            size="mini"
+            type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:case:edit']"
@@ -576,6 +583,10 @@ export default {
         this.getList();
         this.msgSuccess("加入成功");
       })
+
+    },
+    /** 下载*/
+    handleDownload(){
 
     }
   }

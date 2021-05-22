@@ -8,6 +8,8 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.tools.ant.types.FileList;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,45 +43,60 @@ public class UjnFileController extends BaseController
     /**
      * 普通用户上传
      */
-    @PostMapping(value = "/upload")
-    public AjaxResult uploadFile(@RequestParam("files") MultipartFile[] files) throws IOException {
-        List<UjnFile> list = new ArrayList<>();
+    @PreAuthorize("@ss.hasPermi('system:file:upload')")
+    @PostMapping("/upload")
+    public AjaxResult uploadFile(@RequestParam("file") MultipartFile[] multipartFile) throws Exception {
         // 1. 用数组MultipartFile[]来表示多文件,所以遍历数组,对其中的文件进行逐一操作
-        for (MultipartFile file : files) {
+        for (MultipartFile item : multipartFile) {
             // 2. 通过一顿file.getXXX()的操作,获取文件信息。
             // 2.1 这里用文件名举个栗子
-            String filename = file.getOriginalFilename();
+            String filename = item.getOriginalFilename();
             // 3. 接下来调用方法来保存文件到本地磁盘,返回的是保存后的文件路径
-            String filePath = savaFileByNio((FileInputStream) file.getInputStream(), filename);
+            String filePath = savaFileByNio((FileInputStream) item.getInputStream(), filename);
             // 4. 保存文件信息到数据库
             // 4.1 搞个实体类，把你需要的文件信息保存到实体类中
-            ujnFile.setFileName(file.getName());
+            ujnFile.setFileName(item.getOriginalFilename());
             ujnFile.setFilePath(filePath);
-            ujnFile.setFileSize(file.getSize());
+            ujnFile.setFileSize(item.getSize());
             ujnFile.setFileUploadDate(new Date());
             // 4.2 调用Service层或者Dao层，保存数据库即可。
-            list.add(ujnFile);
+            ujnFileService.insertUjnFile(ujnFile);
+            //发现一个xml文件，解析它
+            String suffix = filename.substring(filename.lastIndexOf(".") + 1);//文件的后缀名
+            if(suffix.equals("xml")){
+                //将MultipartFile 转 File
+                File file = ujnFileService.multipartFileToFile(item);
+                //解析函数
+                List<Object> result = ujnFileService.AnalyzeXML(file);
+            }
+            if(suffix.equals("jpg")){
+                //TODO
+            }
+            if(suffix.equals("tif")){
+                //TODO
+            }
         }
-        int flag = 1;
+        /*int flag = 1;
         for(UjnFile ujnFile1 : list){
             flag = ujnFileService.insertUjnFile(ujnFile1);
             if(flag < 1){
                 break;
             }
-        }
-        return toAjax(flag);
+        }*/
+        return null;
     }
 
     /**
      * 该方法是用来将文件写入到磁盘中
-     * @param fis
-     * @param fileName
+     * @param fis 文件流
+     * @param fileName 文件名
      * @return path 路径
      */
     public static String savaFileByNio(FileInputStream fis, String fileName) {
         // 这个路径最后是在: 你的项目路径/FileSpace  也就是和src同级
-        String fileSpace = System.getProperty("user.dir") + File.separator + "FileSpace";
-        String path = fileSpace + File.separator + fileName;
+        //String fileSpace = System.getProperty("user.dir") + File.separator + "FileSpace";
+        String fileSpace = "D:\\wuliChengKun\\RemoteSensingCase\\case\\caseUpload";
+        String path = fileSpace + File.separator + fileName; //File.separator是分隔符的意思
         // 判断父文件夹是否存在
         File file = new File(path);
         if (file.getParentFile() != null || !file.getParentFile().isDirectory()) {
@@ -98,8 +115,6 @@ public class UjnFileController extends BaseController
         }
         return path;
     }
-
-
 
     /**
      * 查询上传文件列表

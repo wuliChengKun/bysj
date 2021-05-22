@@ -51,3 +51,11 @@ export function exportFile(query) {
     params: query
   })
 }
+
+export function uploadFile1(data){
+  return request({
+    url:'/system/file/upload',
+    method:'post',
+    data:data
+  })
+}

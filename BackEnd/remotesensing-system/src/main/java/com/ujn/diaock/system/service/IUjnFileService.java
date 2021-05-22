@@ -1,19 +1,21 @@
 package com.ujn.diaock.system.service;
 
+import java.io.File;
 import java.util.List;
 import com.ujn.diaock.system.domain.UjnFile;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 上传文件Service接口
- * 
+ *
  * @author diaock
  * @date 2021-05-05
  */
-public interface IUjnFileService 
+public interface IUjnFileService
 {
     /**
      * 查询上传文件
-     * 
+     *
      * @param fileId 上传文件ID
      * @return 上传文件
      */
@@ -21,7 +23,7 @@ public interface IUjnFileService
 
     /**
      * 查询上传文件列表
-     * 
+     *
      * @param ujnFile 上传文件
      * @return 上传文件集合
      */
@@ -29,7 +31,7 @@ public interface IUjnFileService
 
     /**
      * 新增上传文件
-     * 
+     *
      * @param ujnFile 上传文件
      * @return 结果
      */
@@ -37,7 +39,7 @@ public interface IUjnFileService
 
     /**
      * 修改上传文件
-     * 
+     *
      * @param ujnFile 上传文件
      * @return 结果
      */
@@ -45,7 +47,7 @@ public interface IUjnFileService
 
     /**
      * 批量删除上传文件
-     * 
+     *
      * @param fileIds 需要删除的上传文件ID
      * @return 结果
      */
@@ -53,9 +55,22 @@ public interface IUjnFileService
 
     /**
      * 删除上传文件信息
-     * 
+     *
      * @param fileId 上传文件ID
      * @return 结果
      */
     public int deleteUjnFileById(Long fileId);
+
+    /**
+     * 解析XML文件
+     */
+    public List<Object> AnalyzeXML(File file);
+
+    /**
+     * MultipartFile 转 File
+     * @param multipartFile
+     * @return
+     * @throws Exception
+     */
+    public File multipartFileToFile(MultipartFile multipartFile) throws Exception;
 }

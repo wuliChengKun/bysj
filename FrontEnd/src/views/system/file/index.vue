@@ -85,15 +85,24 @@
           v-hasPermi="['system:file:export']"
         >导出</el-button>
       </el-col>
-      <el-col>
-        <uploader :options="options" class="uploader-example">
-          <uploader-unsupport></uploader-unsupport>
-          <uploader-drop>
-            <h1>普通用户在此上传</h1>
-            <uploader-btn :directory="true">选择文件夹</uploader-btn>
-          </uploader-drop>
-          <uploader-list></uploader-list>
-        </uploader>
+      <el-col :span="1.5">
+        <el-button
+          size="mini"
+          type="primary"
+        >
+          <el-upload
+            class="file-uploader"
+            action="#"
+            ref="upload"
+            :file-list="fileList"
+            :show-file-list="false"
+            :http-request="uploadFile"
+            :before-upload="beforeFileUpload"
+            multiple
+          >
+            上传文件
+          </el-upload>
+        </el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -167,7 +176,7 @@
 </template>
 
 <script>
-import { listFile, getFile, delFile, addFile, updateFile, exportFile } from "@/api/system/file";
+import { listFile, getFile, delFile, addFile, updateFile, exportFile, uploadFile1 } from '@/api/system/file'
 
 export default {
   name: "File",
@@ -175,11 +184,6 @@ export default {
   },
   data() {
     return {
-      options: {
-        target: '/system/file/upload',
-        autoStart: false,
-        testChunks: false
-      },
       // 遮罩层
       loading: true,
       // 选中数组
@@ -218,6 +222,22 @@ export default {
     this.getList();
   },
   methods: {
+    uploadFile(param){
+    const formData = new FormData();
+    formData.append('file',param.file);
+    console.log(formData.get('file'));
+    uploadFile1(formData).then(response => {
+      console.log('上传成功');
+      this.getList();
+    })
+     /* uploadFile(file).then(response => {
+        console.log('上传成功');
+        this.getList();
+      })*/
+    },
+    beforeFileUpload(){
+
+    },
     /** 查询上传文件列表 */
     getList() {
       this.loading = true;
@@ -325,22 +345,3 @@ export default {
   }
 };
 </script>
-
-<style >
-.uploader-example {
-  width: 880px;
-  padding: 15px;
-  margin: 40px auto 0;
-  font-size: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .4);
-}
-.uploader-example .uploader-btn {
-  margin-right: 4px;
-}
-.uploader-example .uploader-list {
-  max-height: 440px;
-  overflow: auto;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-</style>
