@@ -221,7 +221,6 @@ public class UjnFileServiceImpl implements IUjnFileService
                         Attributes.add("");
                 }
             }
-            System.out.println(Attributes.toString());
         }catch (DocumentException e){
             System.out.println("erro!!");
             e.printStackTrace();
@@ -245,7 +244,7 @@ public class UjnFileServiceImpl implements IUjnFileService
     }
 
     /**
-     * 工具方法
+     * Multipartfile 转 File 工具方法
      * @param ins
      * @param file
      */
