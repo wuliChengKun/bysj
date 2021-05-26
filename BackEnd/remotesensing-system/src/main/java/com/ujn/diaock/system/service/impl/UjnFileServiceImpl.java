@@ -121,7 +121,6 @@ public class UjnFileServiceImpl implements IUjnFileService
             Element InterfaceFile = document.getRootElement();//获取<InterfaceFile>节点，也就是父节点
             Element FileBody = InterfaceFile.element("FileBody");//获取<FileBody>节点
             Iterator attributes = FileBody.elementIterator();//获取<FileBody>节点的孩子节点，也就是所有属性节点
-
             while (attributes.hasNext()){
                 Element attribute = (Element) attributes.next();
                 String nodeName = attribute.getName();

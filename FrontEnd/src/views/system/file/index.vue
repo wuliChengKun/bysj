@@ -230,10 +230,6 @@ export default {
       console.log('上传成功');
       this.getList();
     })
-     /* uploadFile(file).then(response => {
-        console.log('上传成功');
-        this.getList();
-      })*/
     },
     beforeFileUpload(){
 

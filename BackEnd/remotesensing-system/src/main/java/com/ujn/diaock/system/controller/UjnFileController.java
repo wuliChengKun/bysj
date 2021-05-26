@@ -68,6 +68,7 @@ public class UjnFileController extends BaseController
                 File file = ujnFileService.multipartFileToFile(item);
                 //解析函数
                 List<Object> result = ujnFileService.AnalyzeXML(file);
+
             }
             if(suffix.equals("jpg")){
                 //TODO
