@@ -278,7 +278,7 @@
             size="mini"
             type="text"
             icon="el-icon-download"
-            @click="handleDownload()"
+            @click="handleDownload(scope.row)"
             v-has-permi="[]"
             >下载</el-button>
           <el-button
@@ -383,9 +383,10 @@
 </template>
 
 <script>
-import { listCase, getCase, delCase, addCase, updateCase, exportCase } from "@/api/system/case";
+import { listCase, getCase, delCase, addCase, updateCase, exportCase, download1 } from '@/api/system/case'
 import { addShoppingcarFragment } from '@/api/system/fragment'
 import FileUpload from '@/components/FileUpload';
+import { downLoadZip } from '@/utils/zipdownload'
 
 export default {
   name: "Case",
@@ -586,7 +587,18 @@ export default {
 
     },
     /** 下载*/
-    handleDownload(){
+    handleDownload(row){
+      const caseName = row.dataname;
+      let caseURL;
+      download1(caseName).then(response => {
+        caseURL = response.data;
+        console.log(caseURL);
+        window.open(caseURL,'_blank')
+      })
+      console.log(download1(caseName))
+      /*caseURL = download1(caseName).then(response => {
+        this.msgSuccess("下载成功");
+      })*/
 
     }
   }

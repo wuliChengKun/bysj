@@ -33,6 +33,23 @@ public class UjnCaseController extends BaseController
     @Autowired
     private IUjnCaseService ujnCaseService;
 
+
+    /**
+     * 下载遥感案例
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('system:case:download')")
+    @GetMapping("/download")
+    public AjaxResult downloadCase(String caseName){
+        //Nginx 跨域前置URL
+        String baseURL = "http://127.0.0.1:8000/caseRepoistory/";
+
+
+        String zipUrl = "http://127.0.0.1:8000/caseRepoistory/城市建设用地节约集约利用详细评价监管平台.zip";
+        return AjaxResult.success("下载成功",zipUrl);
+    }
+
+
     /**
      * 查询遥感案例列表
      */

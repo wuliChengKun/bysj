@@ -45,7 +45,11 @@ public class UjnFileController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:file:upload')")
     @PostMapping("/upload")
+    @ResponseBody
     public AjaxResult uploadFile(@RequestParam("file") MultipartFile[] multipartFile) throws Exception {
+        int flag= 0;
+
+        List<Object> result = null;
         // 1. 用数组MultipartFile[]来表示多文件,所以遍历数组,对其中的文件进行逐一操作
         for (MultipartFile item : multipartFile) {
             // 2. 通过一顿file.getXXX()的操作,获取文件信息。
@@ -60,15 +64,14 @@ public class UjnFileController extends BaseController
             ujnFile.setFileSize(item.getSize());
             ujnFile.setFileUploadDate(new Date());
             // 4.2 调用Service层或者Dao层，保存数据库即可。
-            ujnFileService.insertUjnFile(ujnFile);
+            flag = ujnFileService.insertUjnFile(ujnFile);
             //发现一个xml文件，解析它
             String suffix = filename.substring(filename.lastIndexOf(".") + 1);//文件的后缀名
             if(suffix.equals("xml")){
                 //将MultipartFile 转 File
                 File file = ujnFileService.multipartFileToFile(item);
                 //解析函数
-                List<Object> result = ujnFileService.AnalyzeXML(file);
-
+                result = ujnFileService.AnalyzeXML(file);
             }
             if(suffix.equals("jpg")){
                 //TODO
@@ -77,14 +80,7 @@ public class UjnFileController extends BaseController
                 //TODO
             }
         }
-        /*int flag = 1;
-        for(UjnFile ujnFile1 : list){
-            flag = ujnFileService.insertUjnFile(ujnFile1);
-            if(flag < 1){
-                break;
-            }
-        }*/
-        return null;
+        return new AjaxResult(200,"success",result);
     }
 
     /**

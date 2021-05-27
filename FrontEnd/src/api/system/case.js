@@ -51,3 +51,11 @@ export function exportCase(query) {
     params: query
   })
 }
+// 下载
+export function download1(data) {
+  return request({
+    url: '/system/case/download',
+    method: 'get',
+    data: data
+  })
+}

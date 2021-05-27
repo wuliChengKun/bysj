@@ -222,13 +222,16 @@ export default {
     this.getList();
   },
   methods: {
+    /**
+     *上传文件
+     */
     uploadFile(param){
     const formData = new FormData();
     formData.append('file',param.file);
-    console.log(formData.get('file'));
+    //console.log(formData.get('file'));
     uploadFile1(formData).then(response => {
-      console.log('上传成功');
       this.getList();
+      this.msgSuccess('上传成功')
     })
     },
     beforeFileUpload(){
